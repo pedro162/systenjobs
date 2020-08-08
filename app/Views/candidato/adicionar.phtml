@@ -1,0 +1,75 @@
+<div class="container">
+	<div class="row pt-5 px-5">
+		<div class="col-md-12 px-4 col-sm-12  mb-2" style="font-size: 15px; margin: auto;" align="center">
+			<nav class="navbar navbar-expand-lg">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item mr-1">
+					        <a class="nav-link link-option desable-link alert alert-primary" id="pessoal" href="/candidato/adicionar">Pessoais</a>
+					    </li>
+					    <li class="nav-item mr-1">
+					        <a class="nav-link link-option desable-link alert alert-secondary" id="formacao" href="/curso/adicionar">Formação</a>
+					    </li>
+					    <li class="nav-item mr-1">
+					        <a class="nav-link link-option desable-link alert alert-secondary" id="experiencia" href="/experiencia/adicionar">Experiencias</a>
+					    </li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div class="row pb-5 px-5">
+		<form class="col" method="post" action="/candidato/salvar" id="adicionarCandidato">
+			<fieldset><legend>Info. Pessoais</legend>
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label for="nome">Nome</label>
+							<input type="text" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['nome'])) ? Core\Utilitarios\Sessoes::loadForm()['nome']: '' ?>" name="nome" id="nome"class="form-control form-control-sm" required="required">
+						</div>
+						<div class="form-group">
+							<label for="sobrenome">Sobresobrenome</label>
+							<input type="text" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['sobrenome'])) ? Core\Utilitarios\Sessoes::loadForm()['sobrenome']: '' ?>" name="sobrenome" id="sobrenome"class="form-control form-control-sm" required="required">
+						</div>
+						<div class="form-group">
+							<label for="cpf">Cpf</label>
+							<input type="text"  value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['cpf'])) ? Core\Utilitarios\Sessoes::loadForm()['cpf']: '' ?>" name="cpf"id="cpf" class="form-control form-control-sm" required="required">
+						</div>
+						<div class="form-group">
+							<label for="nascimento">Nascimento</label>
+							<input type="date" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['nascimento'])) ? Core\Utilitarios\Sessoes::loadForm()['nascimento']: '' ?>" name="nascimento" id="nascimento"class="form-control form-control-sm" required="required">
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="sexo">Sexo</label>
+							<select name="sexo" id="sexo"class="form-control form-control-sm" required="required">
+								<option <?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['sexo']) && Core\Utilitarios\Sessoes::loadForm()['sexo'] =='m' ) ? 'selected': '' ?> value="m">Masculino</option>
+
+								<option  <?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['sexo']) && Core\Utilitarios\Sessoes::loadForm()['sexo'] =='f' ) ? 'selected': '' ?> value="f">Feminino</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="email">E-mail</label>
+							<input type="email" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['email'])) ? Core\Utilitarios\Sessoes::loadForm()['email']: '' ?>" name="email" id="email"class="form-control form-control-sm" required="required">
+						</div>
+						<div class="form-group">
+							<label for="senha">Senha</label>
+							<input type="password" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['password'])) ? Core\Utilitarios\Sessoes::loadForm()['password']: '' ?>" name="senha" id="senha"class="form-control form-control-sm" required="required">
+						</div>
+						<div class="form-group">
+							<label for="phone_1" required="required">Telefone 1</label>
+							<input type="tel" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['phone_1'])) ? Core\Utilitarios\Sessoes::loadForm()['phone_1']: '' ?>" name="phone_1" id="phone_1" class="form-control form-control-sm" required="required">
+						</div>
+						<div class="form-group">
+							<label for="phone_2">Telefone 2</label>
+							<input type="tel" value="<?= ((Core\Utilitarios\Sessoes::loadForm() != false) && isset(Core\Utilitarios\Sessoes::loadForm()['phone_2'])) ? Core\Utilitarios\Sessoes::loadForm()['phone_2']: '' ?>" name="phone_2" id="phone_2" class="form-control form-control-sm">
+						</div>
+					</div>
+				</div>
+				
+				<button class="btn btn-success">Continuar</button>
+			</fieldset>
+		</form>
+	</div>
+</div>
