@@ -118,5 +118,129 @@ class UserController extends BaseController
         header('Location:/usuario/index');
 
     }
+
+    public function adicionar()
+    {
+        try {
+
+            Transaction::startTransaction('connection');
+
+            $this->setMenu();
+            $this->setFooter();
+            
+            $this->render('usuario/adicionar', true);
+
+            Sessoes::clearMessage();
+            
+            Transaction::close();
+
+        } catch (\PDOException $e) {
+            
+            Transaction::rollback();
+
+        }catch (Exception $e){
+
+            Transaction::rollback();
+
+            $error = ['msg', 'warning','<strong>Atenção: </strong>'.$e->getMessage()];
+
+            Sessoes::sendMessage($error);
+        }
+    }
+
+
+    public function salvar($request)
+    {
+        try {
+            
+            Transaction::startTransaction('connection');
+
+            if((! isset($request['post'])) || (count($request['post']) == 0)){
+                throw new Exception('Requisição inválida');
+            }
+
+            $dados = $request['post'];
+
+            /**
+             * Armazena os dados do formulario na sessao 
+             * para previnir de possiveis erros
+             */
+            Sessoes::storangeForm($dados);
+
+            $usuario = new Usuario();
+
+            $usuario->setLogin($dados['email']);
+            $usuario->setSenha($dados['senha']);
+            $usuario->setTipoUsuario('candidato');
+            $usuario->setDtRegistro(date('Y-m-d H:i:s'));
+            
+            
+
+
+            /*
+            
+            phone_1
+            phone_2*/
+
+            /**
+             * Verifica se os dados informados pelo usuario sao válidos
+             */
+            $errosUsuario = $usuario->getErrors();
+
+            if((strlen($errosUsuario) > 0) || (strlen($errosUsuario) > 0)){
+
+                throw new Exception($errosUsuario);
+            }
+
+
+            /**
+             * Salva as informaçoes no banco, caso esteja tudo ok
+             */
+
+            $resultUser = $usuario->save();
+
+            if($resultUser == false){
+                throw new Exception("Erro ao salvar registros");
+                
+            }
+
+           
+            Transaction::close();
+
+            /**
+             * Limpa os dados do fromulario da sessao
+             */
+            Sessoes::clearForm();
+            Sessoes::sendMessage(['msg', 'success', 'Dados cadastrados com sucesso!']);
+
+            /**
+             * Redireciona o candidato para o proximo formulario
+             */
+            //header('Location:/curso/adicionar');
+
+
+        } catch (\PDOException $e) {
+            
+            Transaction::rollback();
+
+        }catch (Exception $e){
+
+            Transaction::rollback();
+
+            $error = ['msg', 'warning','<strong>Atenção: </strong>'.$e->getMessage()];
+            Sessoes::sendMessage($error);
+
+            /**
+             * Redireciona o candidato de volta ao formulario
+             */
+            header('Location:/candidato/adicionar');
+
+        }
+
+
+    }
+
+
+
     
 }

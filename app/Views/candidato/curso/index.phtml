@@ -1,1 +1,74 @@
-index.phtml
+<div class="container">
+	<div class="row pt-5 px-5">
+		<div class="col-md-12 px-4 col-sm-12  mb-2" style="font-size: 15px; margin: auto;" align="center">
+			<nav class="navbar navbar-expand-lg">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item mr-1">
+					        <a class="nav-link link-option desable-link alert alert-primary" id="pessoal" href="/candidato/info">Pessoais</a>
+					    </li>
+					    <li class="nav-item mr-1">
+					        <a class="nav-link link-option desable-link alert alert-primary" id="formacao" href="<?= (isset($this->view->registro) && $this->view->registro[0]->getCurso() != false) ? '/curso/index' : '/curso/adicionar'?>">Formação</a>
+					    </li>
+					    <li class="nav-item mr-1">
+					        <a class="nav-link link-option desable-link alert alert-secondary" id="experiencia" href="<?= (isset($this->view->registro) && $this->view->registro[0]->getExperiencia() != false) ? '/experiencia/index' : '/experiencia/adicionar'?>">Experiencias</a>
+					    </li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div class="row pb-5 px-5" align="center">
+		<div class="col"><h2>Info. cursos</h2></div>
+	</div>
+	<div class="row pb-5 px-5" align="center" >
+		<div class="col-md-12 col-sm-12" align="right">
+			<table class="table table-md table-sm table-responsive-md table-responsive-sm table-hover">
+				<thead>
+					<tr>
+						<th>Cuso</th>
+						<th>Instituição</th>
+						<th>Status</th>
+						<th>Tipo</th>
+						<th>Turno</th>
+						<th>Modalidade</th>
+						<th>Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+
+						for ($i=0; !($i == count($this->view->registros) ); $i++) { 
+							
+					?>
+					<tr>
+						<td><?=$this->view->registros[$i]->getNome();?></td>
+						<td><?=$this->view->registros[$i]->getInstituicao();?></td>
+						<td><?=$this->view->registros[$i]->getStatus();?></td>
+						<td><?=$this->view->registros[$i]->getTipo();?></td>
+						<td><?=$this->view->registros[$i]->getTurno();?></td>
+						<td><?=$this->view->registros[$i]->getModalidade();?></td>
+						<td>
+							<a href="#" class="btn btn-sm btn-outline-success">Visualizar</a>
+							<a href="/curso/editar?curso=<?=$this->view->registros[$i]->getIdCurso();?>" class="btn btn-sm btn-outline-primary">Editar</a>
+							<a href="#" class="btn btn-sm btn-outline-danger">Excluir</a>
+						</td>
+					</tr>
+					<?php 
+
+						}
+					?>
+
+
+
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row pb-5 px-5">
+		<div class="col" align="left">
+			<a href="/curso/adicionar" class="btn btn-sm btn-outline-success">Adicionar</a>
+		</div>
+	</div>
+</div>

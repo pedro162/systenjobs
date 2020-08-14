@@ -5,13 +5,13 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item mr-1">
-					        <a class="nav-link link-option desable-link alert alert-primary" id="pessoal" href="/candidato/adicionar">Pessoais</a>
+					        <a class="nav-link link-option desable-link alert alert-primary" id="pessoal" href="/candidato/info">Pessoais</a>
 					    </li>
 					    <li class="nav-item mr-1">
-					        <a class="nav-link link-option desable-link alert alert-secondary" id="formacao" href="/curso/adicionar">Formação</a>
+					        <a class="nav-link link-option desable-link alert alert-primary" id="formacao" href="<?= (isset($this->view->registro) && $this->view->registro[0]->getCurso() != false) ? '/curso/index' : '/curso/adicionar'?>">Formação</a>
 					    </li>
 					    <li class="nav-item mr-1">
-					        <a class="nav-link link-option desable-link alert alert-secondary" id="experiencia" href="/experiencia/adicionar">Experiencias</a>
+					        <a class="nav-link link-option desable-link alert alert-secondary" id="experiencia" href="<?= (isset($this->view->registro) && $this->view->registro[0]->getExperiencia() != false) ? '/experiencia/index' : '/experiencia/adicionar'?>">Experiencias</a>
 					    </li>
 					</ul>
 				</div>

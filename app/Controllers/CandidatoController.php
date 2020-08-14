@@ -32,7 +32,12 @@ class CandidatoController extends BaseController
             $this->setFooter('_candidato/candidatoFooter');
 
             $registro = $usuario[0]->titular();
+            
+            $curso = $usuario[0]->titular()[0]->getCurso();
+            $experienica = $usuario[0]->titular()[0]->getExperiencia();
 
+            $this->view->curso = $curso;
+            $this->view->experienica = $experienica;
             $this->view->registro = $registro;
             $this->render('candidato/index', true, 'layoutAdmin');
             
@@ -74,8 +79,8 @@ class CandidatoController extends BaseController
 
             $usuario = new Usuario();
 
-            $usuario->setLogin($dados['email']);
-            $usuario->setSenha($dados['senha']);
+            $usuario->setLogin($dados['email'] ?? '');
+            $usuario->setSenha($dados['senha'] ?? '');
             $usuario->setTipoUsuario('candidato');
             $usuario->setDtRegistro(date('Y-m-d H:i:s'));
             
@@ -102,9 +107,9 @@ class CandidatoController extends BaseController
             $errosUsuario = $usuario->getErrors();
             $errosCandidato = $candidato->getErrors();
 
-            if((strlen($errosUsuario) > 0) || (strlen($errosUsuario) > 0)){
+            if((strlen($errosUsuario) > 0) || (strlen($errosCandidato) > 0)){
 
-                throw new Exception($errosUsuario.'<br/>'.$errosUsuario);
+                throw new Exception($errosUsuario.'<br/>'.$errosCandidato);
             }
 
 
@@ -130,7 +135,13 @@ class CandidatoController extends BaseController
             if($resultCand == false){
                 throw new Exception("Erro ao salvar registros");
                 
-            } 
+            }
+
+            /**
+             * Armazena o usuario na cessao para acessar o sistema
+             */
+            $usuaio  = $usuario->findForId($lastIdUser);
+            Sessoes::usuarioInit($usuaio); 
 
             
             Transaction::close();
@@ -139,6 +150,10 @@ class CandidatoController extends BaseController
              * Limpa os dados do fromulario da sessao
              */
             Sessoes::clearForm();
+
+            /**
+             * Exibe uma mensagem de sucesso
+             */
             Sessoes::sendMessage(['msg', 'success', 'Dados cadastrados com sucesso!']);
 
             /**
@@ -165,6 +180,50 @@ class CandidatoController extends BaseController
 
         }
 
+
+    }
+
+    public function finalizarCurriculo()
+    {
+        try {
+            
+            //busca o usuario logado
+            $usuario = Sessoes::usuarioLoad();
+            if($usuario == false){
+                header('Location:/usuario/index');
+                
+            }
+
+            Transaction::startTransaction('connection');
+
+            $curso = $usuario[0]->titular()[0]->getCurso();
+            if($curso == false){
+                header('Location: /curso/adicionar');
+                return true;
+            }
+
+            $experienica = $usuario[0]->titular()[0]->getExperiencia();
+            if($experienica == false){
+                header('Location: /experiencia/adicionar');
+                return true;
+            }
+            
+            Transaction::close();
+
+        } catch (\PDOException $e) {
+            
+            Transaction::rollback();
+
+        }catch (Exception $e){
+
+            Transaction::rollback();
+
+            $error = ['msg', 'warning','<strong>Atenção: </strong>'.$e->getMessage()];
+
+            $this->view->result = json_encode($error);
+            $this->render('candidato/ajax', false);
+            Sessoes::sendMessage($error);
+        }   
 
     }
 
@@ -207,17 +266,19 @@ class CandidatoController extends BaseController
         }
     }
 
-    public function curriculo($request)
+    public function info()
     {
+
         try {
-            
+
             //busca o usuario logado
             $usuario = Sessoes::usuarioLoad();
             if($usuario == false){
                 header('Location:/usuario/index');
                 
             }
-            
+
+
             Transaction::startTransaction('connection');
 
             $this->setMenu('_candidato/candidatoMenu');
@@ -226,23 +287,27 @@ class CandidatoController extends BaseController
             $registro = $usuario[0]->titular();
 
             $this->view->registro = $registro;
-            $this->render('candidato/curriculo/curriculo', true, 'layoutAdmin');
-            
+
+            $this->render('candidato/info', true, 'layoutAdmin');
+
             Transaction::close();
 
         } catch (\PDOException $e) {
             
             Transaction::rollback();
 
-        }catch (Exception $e) {
+        }catch (Exception $e){
 
             Transaction::rollback();
-            
+
             $error = ['msg', 'warning','<strong>Atenção: </strong>'.$e->getMessage()];
 
             Sessoes::sendMessage($error);
-        }   
+        }
+
     }
+
+    
 
 
 

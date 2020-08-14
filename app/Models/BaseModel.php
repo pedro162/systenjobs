@@ -96,8 +96,7 @@ abstract class BaseModel
 
 
     //ao informar o filtro, o operador tambem deve ser invormado
-    public function select(array $elementos, array $where,
-     $ordem = 'asc', $litmitInit = null, $limitEnd = null, $std = null, $groupBy = false)
+    public function select(array $elementos, array $where, Array $ordem = null, $litmitInit = null, $limitEnd = null, $std = null, $groupBy = false)
     {
 
 
@@ -151,7 +150,18 @@ abstract class BaseModel
             $sql .= ' GROUP BY nome'.ucfirst($this->getTable());
         }
 
-        $sql .= ' ORDER BY id'.$this->getTable().' '.$ordem;
+        if(! is_null($ordem)){
+            if(is_array($ordem) && (count($ordem) > 0)){
+
+                $sql .= ' ORDER BY';
+
+                for ($i=0; !($i == count($ordem)) ; $i++) { 
+                    $sql.= ' '.$ordem[$i]['key'].' '.$ordem[$i]['order'].',';
+                }
+
+                $sql = substr($sql, 0, -1);
+            }
+        }
 
         if(!is_null($litmitInit)){
 

@@ -38,11 +38,11 @@ class SiteController extends BaseController
             $result = $candidato->findForId(1);
 
             $empresa = new Empresa();
-            $empresas = $empresa->select(['*'], [], 'asc',0, 12, true, false);
+            $empresas = $empresa->select(['*'], [], null,0, 12, true, false);
             $totEmpresas = $empresa->countItens();
 
             $vaga = new Vaga();
-            $vagas = $vaga->select(['*'], [], 'asc',0, 4, true, false);
+            $vagas = $vaga->select(['*'], [], null,0, 4, true, false);
             $totVagas = $vaga->countItens();
 
             $data = new \DateTime();

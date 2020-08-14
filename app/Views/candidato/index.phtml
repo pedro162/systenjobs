@@ -1,26 +1,39 @@
 <div class="row py-5 px-5">
 	<div class="col-md-9 px-4 col-sm-12  mb-2" style="font-size: 15px;">
 		<div class="row">
-			<div class="col p-4 mb-2 mr-2 rounded border bg-white col-shadow">
-				<form>
-					<div class="form-group">
-						<label for="vaga">Vaga</label>
-						<input id="vaga" type="text" name="vaga" class="form-control">
-					</div>
-					<div class="form-group">
-						<label for="onde">Onde?</label>
-						<input id="onde" type="text" name="onde" class="form-control">
-					</div>
-					<center><button type="submit" class="btn btn-md btn-outline-primary">Buscar Vagas</button></center>
-				</form>
+			<div style="height: 250px;" class="col p-4 mb-2 mr-2 rounded border bg-white col-shadow" align="center">
+				<p>Estatísticas do curriculo</p>
+				<p>Progresso do currículo</p>
+				<?php
+
+
+					if(
+						(isset($this->view->curso)) && (isset($this->view->experienica))
+						&& ($this->view->curso != false) && ($this->view->experienica != false)
+					){
+
+				?>
+
+				<p><a class="btn btn-md btn-outline-primary desable-link" href="/candidato/info">Atualizar Curriculo</a></p>
+				
+				<?php
+
+					}else{
+				?>
+				<p><a class="btn btn-md btn-outline-primary desable-link" href="/candidato/finalizar/curriculo">Finalizar curriculo</a></p>
+				<?php 
+
+					}
+
+				?>
 			</div>
-			<div class="col p-4 mb-2 mr-2 rounded  border bg-white col-shadow">
+			<div style="height: 250px;" class="col p-4 mb-2 mr-2 rounded  border bg-white col-shadow">
 				<h5 align="left">Notificações do admin</h5>
 				<div class="row mt-2">
 					
 				</div>
 			</div>
-			<div class="col p-4 mb-2 mr-2 rounded border bg-white col-shadow">
+			<div style="height: 250px;" class="col p-4 mb-2 mr-2 rounded border bg-white col-shadow">
 				<h5 align="center">Resumo de candidaturas</h5>
 				<div class="row mt-2">
 					<div class="col">
@@ -39,7 +52,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col p-4 mb-2 mr-2 rounded border bg-white col-shadow">
+			<div style="height: 250px;" class="col p-4 mb-2 mr-2 rounded border bg-white col-shadow">
 				<h5 align="center">Cursos recomendados</h5>
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
@@ -52,12 +65,12 @@
 				
 				<a href="#" class="btn btn-md btn-outline-primary">Ver mais</a>
 			</div>
-			<div class="col p-4 mb-2 mr-2  border bg-white col-shadow">
+			<div style="height: 250px;" class="col p-4 mb-2 mr-2  border bg-white col-shadow">
 				<h5 align="center">Melhore seu CV</h5>
 				<p align="center" class="mt-5">com testes e simulados</p>
 				<p align="center"><a href="#" class="btn btn-md btn-outline-primary desable-link">Seja premium</a></p>
 			</div>
-			<div class="col p-4 mb-2 mr-2 border bg-white col-shadow">
+			<div style="height: 250px;" class="col p-4 mb-2 mr-2 border bg-white col-shadow">
 				<h5 align="center">Novas mensagens</h5>
 				<div class="row mt-5">
 					<div class="col" align="center" style="vertical-align: center; height: 100%;">

@@ -19,67 +19,67 @@
 		</div>
 	</div>
 	<div class="row pb-5 px-5">
-		<form class="col" method="post" action="/curso/salvar">
+		<form class="col" method="post" action="/curso/atualizar">
 			<fieldset><legend>Cursos</legend>
+			<input type="hidden" name="curso" value="<?=$this->view->dados[0]->getIdCurso();?>">
 				<div class="row">
 					<div class="col">
 						<div class="form-group">
 							<label for="nome">Nome</label>
-							<input type="text" name="nome" id="nome"class="form-control form-control-sm" required="required" value="">
+							<input type="text" name="nome" id="nome"class="form-control form-control-sm" required="required" value="<?=$this->view->dados[0]->getNome();?>">
 						</div>
 						<div class="form-group">
 							<label for="instituicao">Instituição</label>
-							<input type="text" name="instituicao" id="instituicao"class="form-control form-control-sm" required="required"  value="" >
+							<input type="text" name="instituicao" id="instituicao"class="form-control form-control-sm" required="required"  value="<?=$this->view->dados[0]->getInstituicao();?>" >
 						</div>
 						<div class="form-group">
 							<label for="tipo">Tipo</label>
 							<select name="tipo" id="tipo"class="form-control form-control-sm" required="required">
-								<option  value="graduacao" >Graduação</option>
-								<option  value="pos-graduacao">Pós-Graduação</option>
-								<option  value="profissionalizante" value="2">Profissionalizante</option>
-								<option  value="especializacao">Especialização</option>
+								<option <?= ( $this->view->dados[0]->getTipo() =='graduacao' ) ? 'selected': '' ?> value="graduacao" >Graduação</option>
+								<option <?= ( $this->view->dados[0]->getTipo() =='pos-graduacao' ) ? 'selected': '' ?> value="pos-graduacao">Pós-Graduação</option>
+								<option <?= ( $this->view->dados[0]->getTipo() =='profissionalizante' ) ? 'selected': '' ?> value="profissionalizante" value="2">Profissionalizante</option>
+								<option  <?= ( $this->view->dados[0]->getTipo() =='especializacao' ) ? 'selected': '' ?> value="especializacao">Especialização</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="inico">Inicio</label>
-							<input type="date" name="inico"id="inico" class="form-control form-control-sm" required="required" value="">
+							<input type="date" name="inico"id="inico" class="form-control form-control-sm" required="required" value="<?=$this->view->dados[0]->getDtInicio();?>">
 						</div>
 					</div>
 					<div class="col">
 						<div class="form-group">
 							<label for="termino">Termino</label>
-							<input type="date" name="termino" id="termino"class="form-control form-control-sm" required="required" value="">
+							<input type="date" name="termino" id="termino"class="form-control form-control-sm" required="required" value="<?=$this->view->dados[0]->getDtTermino();?>">
 						</div>
 						<div class="form-group">
 							<label for="status">Status</label>
 							<select name="status" id="status"class="form-control form-control-sm" required="required">
-								<option value="cursando" >Cursando</option>
-								<option value="trancado">Trancado</option>
-								<option value="concluido">Concluido</option>
+								<option <?= ( $this->view->dados[0]->getStatus() =='cursando' ) ? 'selected': '' ?> value="cursando" >Cursando</option>
+								<option <?= ( $this->view->dados[0]->getStatus() =='trancado' ) ? 'selected': '' ?> value="trancado">Trancado</option>
+								<option <?= ( $this->view->dados[0]->getStatus() =='concluido' ) ? 'selected': '' ?> value="concluido">Concluido</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="turno">Turno</label>
 							<select name="turno" id="turno"class="form-control form-control-sm" required="required">
-								<option value="matutino" >Matutino</option>
-								<option value="vespertino">Vespertino</option>
-								<option value="noturno" >Noturno</option>
+								<option <?= ( $this->view->dados[0]->getTurno() =='matutino' ) ? 'selected': '' ?> value="matutino" >Matutino</option>
+								<option <?= ( $this->view->dados[0]->getTurno() =='vespertino' ) ? 'selected': '' ?> value="vespertino">Vespertino</option>
+								<option <?= ( $this->view->dados[0]->getTurno() =='noturno' ) ? 'selected': '' ?> value="noturno" >Noturno</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="modalidade">Modalidade</label>
 							<select name="modalidade" id="modalidade"class="form-control form-control-sm" required="required">
-								<option value="ead" >Ead</option>
-								<option value="presencial">Presencial</option>
-								<option value="semepresencial" >Semipresencial</option>
+								<option <?= ( $this->view->dados[0]->getModalidade() =='ead' ) ? 'selected': '' ?> value="ead" >Ead</option>
+								<option <?= ( $this->view->dados[0]->getModalidade() =='presencial' ) ? 'selected': '' ?> value="presencial">Presencial</option>
+								<option <?= ( $this->view->dados[0]->getModalidade() =='semepresencial' ) ? 'selected': '' ?> value="semepresencial" >Semipresencial</option>
 							</select>
 						</div>
 					</div>
 
 				</div>
-				
 							
-				<button class="btn btn-success">Adicionar</button>
+				<button class="btn btn-success">Atualizar</button>
 				<a class="btn btn-md btn-outline-danger" href="<?= (isset($this->view->registro) && $this->view->registro[0]->getCurso() != false) ? '/curso/index' : '/curso/adicionar'?>">Cancelar</a>
 			</fieldset>
 		</form>

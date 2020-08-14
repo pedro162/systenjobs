@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\BaseModel;
 use App\Models\Chate;
 use App\Models\ConversaChate;
+use App\Models\Experiencia;
+use App\Models\Curso;
 use \Exception;
 use \InvalidArgumentException;
 
@@ -46,7 +48,9 @@ class Candidato extends BaseModel
 
     public function modify()
     {
+        $result = $this->parseCommit();
 
+        return $this->update($result, $this->idCandidato);
     }
 
     public function findForId(Int $id)
@@ -62,7 +66,59 @@ class Candidato extends BaseModel
 
     }
 
+
+    public function getExperiencia()
+    {
+        $exericia = new Experiencia();
+
+        $result = $exericia->select(
+                ['*'],
+
+                [
+                    ['key'=>'idCandidato', 'val' => $this->idCandidato, 'comparator'=>'=']
+                ],
+
+                [
+
+                    ['key'=>'cargo', 'order'=>'asc']
+
+                ], null, null, true, false
+            );
+
+        return $result;
+    }
+
+    public function getCurso()
+    {
+        $curso = new Curso();
+
+        $result = $curso->select(
+                ['*'], [
+                    ['key'=>'idCandidato', 'val' => $this->idCandidato, 'comparator'=>'=']
+                ], [['key' => 'nome', 'order' => 'asc']], null,null, true, false
+            );
+
+        return $result;
+    }
+
 // -------------------- SETTERS E GETTERS ----------------------------------
+
+    public function getIdCandidato()
+    {
+        if((! isset($this->data['idCandidato'])) || ($this->data['idCandidato'] <= 0)){
+
+            if(isset($this->idCandidato) && ($this->idCandidato > 0)){
+                return $this->idCandidato;
+            }
+
+            throw new Exception("Propriedade não definida\n");
+            
+        }
+
+        return $this->data['idCandidato'];
+
+    }
+
 
     public function getIdUsuario()
     {
@@ -300,11 +356,11 @@ class Candidato extends BaseModel
     {
         if((! isset($sexo)) || (strlen(trim($sexo))  == 0)){
 
-            $this->setErrors("Sexo  inválido\n");
+            $this->setErrors("Sexo  inválido \n");
             return false;
         }
 
-        if(($sexo != 'm') || ($sexo != 'f')){
+        if(($sexo != 'm') && ($sexo != 'f')){
 
             $this->setErrors("Sexo  inválido\n");
             return false;

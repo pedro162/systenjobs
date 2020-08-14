@@ -19,44 +19,45 @@
 		</div>
 	</div>
 	<div class="row pb-5 px-5">
-		<form class="col" method="post" action="/experiencia/salvar">
+		<form class="col" method="post" action="/experiencia/atualizar">
 			<fieldset><legend>Experienias</legend>
+				<input type="hidden" name="experiencia" value="<?= $this->view->dados[0]->getIdExperiencia(); ?>">
 				<div class="row">
 					<div class="col">
 						<div class="form-group">
 							<label for="empresa">Empresa</label>
-							<input type="text" name="empresa" id="empresa"class="form-control form-control-sm" required="required">
+							<input type="text" name="empresa" id="empresa"class="form-control form-control-sm" required="required" value="<?= $this->view->dados[0]->getNomeEmpresa(); ?>">
 						</div>
 						<div class="form-group">
 							<label for="cargo">Cargo</label>
-							<input type="text" name="cargo" id="cargo"class="form-control form-control-sm" required="required">
+							<input type="text" name="cargo" id="cargo"class="form-control form-control-sm" required="required" value="<?= $this->view->dados[0]->getCargo(); ?>">
 						</div>
 						<div class="form-group">
 							<label for="desc_cargo">Descrição do cargo</label>
-							<textarea required="required" name="desc_cargo"id="desc_cargo" class="form-control form-control-sm"></textarea>
+							<textarea required="required" name="desc_cargo"id="desc_cargo" class="form-control form-control-sm"> <?= $this->view->dados[0]->getDescricao(); ?></textarea>
 						</div>
 					</div>
 					<div class="col">
 						<div class="form-group">
 							<label for="inicio">Inicio</label>
-							<input type="date" name="inicio" id="inicio"class="form-control form-control-sm" required="required">
+							<input type="date" name="inicio" id="inicio"class="form-control form-control-sm" required="required" value="<?= $this->view->dados[0]->getDtInicio(); ?>">
 						</div>
 						<div class="form-group">
 							<label for="fim">Fim</label>
-							<input type="date" name="fim" id="fim"class="form-control form-control-sm" required="required">
+							<input type="date" name="fim" id="fim"class="form-control form-control-sm" required="required" value="<?= $this->view->dados[0]->getDtFim(); ?>">
 						</div>
 						<div class="form-group">
 							<label for="atual">Atual ?</label>
 							<select name="atual" id="atual"class="form-control form-control-sm" required="required">
-								<option value="sim">Sim</option>
-								<option value="nao">Não</option>
+								<option <?= ( $this->view->dados[0]->getAtual() =='sim' ) ? 'selected': '' ?> value="sim">Sim</option>
+								<option <?= ( $this->view->dados[0]->getAtual() =='nao' ) ? 'selected': '' ?> value="nao">Não</option>
 							</select>
 						</div>
 					</div>
 				</div>
 				
-				<button class="btn btn-success">Adicionar</button>
-				<a class="btn btn-md btn-outline-danger" href="<?= (isset($this->view->registro) && $this->view->registro[0]->getExperiencia() != false) ? '/curso/index' : '/curso/adicionar'?>">Cancelar</a>
+				<button class="btn btn-success">Atualizar</button>
+				<a class="btn btn-md btn-outline-danger" href="<?= (isset($this->view->dados) && $this->view->dados[0]->getIdExperiencia() != false) ? '/experiencia/index' : '/experiencia/adicionar'?>">Cancelar</a>
 			</fieldset>
 		</form>
 	</div>

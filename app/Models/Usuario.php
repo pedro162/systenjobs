@@ -163,7 +163,7 @@ class Usuario extends BaseModel
             [
                 ['key'=>'idUsuario', 'val' => $id, 'comparator' => '=']
             
-            ],'asc', 1, null, true, false);
+            ],null, 1, null, true, false);
 
         return $result;
     }
@@ -224,7 +224,7 @@ class Usuario extends BaseModel
                 ['key'=>'senha','val'=> $password,'comparator'=>'=']
 
             ],
-            'asc', 1, null, true, false
+            null, 1, null, true, false
         );
 
         return $result;  
@@ -245,7 +245,7 @@ class Usuario extends BaseModel
                             'comparator'=>'=']
 
                         ],
-                        'asc', 1, null, true, false
+                        null, 1, null, true, false
                     );
 
                 break;
@@ -260,7 +260,7 @@ class Usuario extends BaseModel
                             'comparator'=>'=']
 
                         ],
-                        'asc', 1, null, true, false
+                        null, 1, null, true, false
                     );
                 break;
 
@@ -274,7 +274,7 @@ class Usuario extends BaseModel
                             'comparator'=>'=']
 
                         ],
-                        'asc', 1, null, true, false
+                        null, 1, null, true, false
                     );
                 break;
         }
