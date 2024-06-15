@@ -1,8 +1,9 @@
 name: Esteria para aplicação de teste
 on:
-  branches:
-     - master
-     - main
+  push:
+    branches:
+      - master
+      - main
 
 jobs:
   example:
