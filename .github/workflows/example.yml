@@ -1,0 +1,25 @@
+name: Esteria para aplicação de teste
+on:
+  branches:
+     - master
+     - main
+
+jobs:
+  example:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          java-verson: '11'
+          destribution: 'temurin'
+
+      - name: Run Mave Clean
+        run: 'mvn clean'
+
+      - name: Maven Packege
+        run: |
+          mvn package -DiskipTests
+          ls -l target/
+
